@@ -42,6 +42,7 @@ Calculations and spectroscopy
 .. autosummary::
    :toctree: generated
    :nosignatures:
+   :recursive:
 
    calculations
    polarisation
@@ -56,6 +57,7 @@ Symmetry and I/O
 .. autosummary::
    :toctree: generated
    :nosignatures:
+   :recursive:
 
    symmetry
    cif
