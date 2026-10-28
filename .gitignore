@@ -4,6 +4,9 @@
 # Sphinx build output
 docs/_build/
 
+# Sphinx generated files
+docs/api/generated/
+
 # Local / generated data
 spacegroup_database.pickle
 LocalNotes/
