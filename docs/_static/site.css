@@ -2,6 +2,10 @@
   gap: 1rem;
 }
 
+.highlight-text pre {
+  background:var(--pst-color-background)
+}
+
 .anchor-link {
   position: absolute; 
   width: 100%;
