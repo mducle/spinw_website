@@ -4,7 +4,7 @@
 
 ## Frustrated J1-J2 AFM chain
 
-Crystal structure, shortest bond along a-axis, Cu+ magnetic atoms with S=1 spin.
+Crystal structure, shortest bond along $a$-axis, Cu$^+$ magnetic atoms with $S=1$ spin.
 
 ### Define the lattice
 
@@ -36,7 +36,7 @@ ans =
 
 ### Couplings
 
-First and second neighbor antiferromagnetic couplings. If the name of the matrix ends with '-' the bond is plotted with dashed line.
+First and second neighbor antiferromagnetic couplings. If the name of the matrix ends with `'-'` the bond is plotted with dashed line.
 
 ```matlab
 J1J2chain.gencoupling('maxDistance',7);
@@ -77,9 +77,9 @@ We use two different methods to define the ground state magnetic structure:
 
 If we would know the exact solution of the spin Hamiltonian we can input that, assuming a helix with the following parameters:
 
-- magnetic ordering wave vector k = (1/4 0 0)
-- spins lying in arbitrary plane, first spin S = (1 0 0)
-- normal to the plane of the spin helix has to be perpendicular to S, we choose it n = (0 0 1)
+- magnetic ordering wave vector $k = (\frac{1}{4} 0 0)$
+- spins lying in arbitrary plane, first spin $S = (1 0 0)$
+- normal to the plane of the spin helix has to be perpendicular to S, we choose it $n = (0 0 1)$
 - we won't use a magnetic supercell, not necessary
 
 ```matlab
@@ -114,7 +114,7 @@ Ground state energy: -2.000 meV/spin.
 
 ### We optimise the helix pitch angle
 
-We are unsure about the right pitch angle of the helix, thus we want to calculate it. The sw.optmagstr() is able to determine the magnetic ground state. It uses a constraint function (@gm_planar in this case) to reduce the number of paramteres that has to be optimised. It works well if the number of free parameters are low. we will find the the right k-vector is 0.2301.
+We are unsure about the right pitch angle of the helix, thus we want to calculate it. The [spinw.optmagstr](#spinw-optmagstr) is able to determine the magnetic ground state. It uses a constraint function (@[gm_planar](#gm-planar) in this case) to reduce the number of parameters that has to be optimised. It works well if the number of free parameters are low. We will find the the right k-vector is `0.2301`.
 
 ```matlab
 %     Phi1 k_x k_y k_z nTheta nPhi
@@ -150,7 +150,7 @@ ans =
 
 ### Spin wave spectrum
 
-We calculate the spin wave spectrum, the code automatically uses the method that enables the spin wave calculation of incommensurate structures withouth creating a magnetic supercell. There are three spin wave modes, these are omega(Q), omega(Q+/-k). The two shifted ones are due to the incommensurate structure.
+We calculate the spin wave spectrum, the code automatically uses the method that enables the spin wave calculation of incommensurate structures withouth creating a magnetic supercell. There are three spin wave modes, these are $\omega(\mathbf{Q})$, $\omega(\mathbf{Q}\pm\mathbf{k})$. The latter two shifted ones are due to the incommensurate structure.
 
 ```matlab
 J1J2spec= J1J2chain.spinwave({[0 0 0] [1 0 0] 400}, 'hermit',false);

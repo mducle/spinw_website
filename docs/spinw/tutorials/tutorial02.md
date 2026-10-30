@@ -4,7 +4,7 @@
 
 ## Antiferromagnetic nearest-neighbour spin chain
 
-Definition of crystal structure, shortest bonds along the a-axis magnetic Cu+ atoms with S=1 spin.
+Definition of crystal structure, shortest bonds along the $a$-axis magnetic Cu$^+$ atoms with $S=1$ spin.
 
 ### Define the lattice
 
@@ -36,7 +36,7 @@ ans =
 
 ### Create antiferromagnetic interactions
 
-Ja = 1 meV, positive sign denotes antiferromagnetic interaction.
+$J_a = 1$ meV, positive sign denotes antiferromagnetic interaction.
 
 ```matlab
 AFMchain.gencoupling('maxDistance',7)
@@ -83,9 +83,9 @@ ans =
 
 We define a magnetic supercell 2x1x1 of the crystal cell and define both spin direction in the supercell with the following parameters:
 
-- magnetic ordering wave vector k = (1/2 0 0)
-- spins pointing along +/- y direction: S = [[0 1 0]' [0 -1 0]']
-- normal to the spin vectors n = (1 0 0)
+- magnetic ordering wave vector $k = (\frac{1}{2} 0 0)$
+- spins pointing along +/- y direction: `S = [[0 1 0]' [0 -1 0]']`
+- normal to the spin vectors $n = (1 0 0)$
 
 ```matlab
 AFMchain.genmagstr('mode','direct','k',[1/2 0 0],'n',[1 0 0],'S',[0 0; 1 -1;0 0],'nExt',[2 1 1]);
@@ -93,7 +93,7 @@ AFMchain.genmagstr('mode','direct','k',[1/2 0 0],'n',[1 0 0],'S',[0 0; 1 -1;0 0]
 
 ### Define only one spin
 
-We define the spin direction in the crystallographic unit cell and let the sw.genmagstr() function generate the other spin based on the magnetic ordering wave vector and normal vectors. This method is usefull for creating complex structures. Both methods gives the same magnetic structure, all stored values in the afchain.mag_str field are the same.
+We define the spin direction in the crystallographic unit cell and let the [spinw.genmagstr](#spinw-genmagstr) function generate the other spin based on the magnetic ordering wave vector and normal vectors. This method is useful for creating complex structures. Both methods gives the same magnetic structure, all stored values in the `afchain.mag_str` field are the same.
 
 ```matlab
 AFMchain.genmagstr('mode','helical','k',[1/2 0 0],'n',[1 0 0],'S',[0; 1; 0],'nExt',[2 1 1]);

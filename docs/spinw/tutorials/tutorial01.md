@@ -8,7 +8,7 @@ The following tutorial shows every step necessary to calculate spin wave spectru
 
 ### Define spin chain with magnetic atoms
 
-The shortest lattice parameter along the a-axis will give the first neighbor bonds along this axis. After defining the lattice, we add a magnetic Cu+ ion with spin S=1 at the origin of the unit cell and plot the lattice.
+The shortest lattice parameter along the $a$-axis will give the first neighbor bonds along this axis. After defining the lattice, we add a magnetic Cu$^+$ ion with spin $S=1$ at the origin of the unit cell and plot the lattice.
 
 ```matlab
 FMchain = spinw;
@@ -23,7 +23,7 @@ FMchain.plot('range',[3 1 1])
 
 ### Determine the list of bonds based on length
 
-To consider bonds up to 7 Angstrom length we use the sw.gencoupling() function. Since no symmetry operators are defined, it sorts all bonds according to increasing length, all bonds are equivalent that has the same length within an error bar (0.001 Angstrom by default).
+To consider bonds up to 7 Angstrom length we use the [spinw.gencoupling](#spinw-gencoupling) function. Since no symmetry operators are defined, it sorts all bonds according to increasing length, all bonds are equivalent that has the same length within an error bar (0.001 Angstrom by default).
 
 ```matlab
 FMchain.gencoupling('maxDistance',7)
@@ -46,7 +46,7 @@ ans =
 
 ### Defining the spin Hamiltonian
 
-We create a matrix with a label 'Ja', ferromagnetic heisenberg interaction, J = -1 meV and assing it to the first neghbor bonds as spin-spin exchange interaction: J*S(i)*S(i+1). And plot the crystal structure with the added bonds.
+We create a matrix with a label `'Ja'`, ferromagnetic Heisenberg interaction, $J = -1$ meV and assign it to the first neighbor bonds as a spin-spin exchange interaction: $J S_i\cdot S_{i+1}$. And plot the crystal structure with the added bonds.
 
 ```matlab
 FMchain.addmatrix('value',-eye(3),'label','Ja','color','green')
@@ -62,9 +62,9 @@ plot(FMchain,'range',[3 0.2 0.2],'cellMode','none','baseMode','none')
 
 The classical magnetic ground state of the previously defined Hamiltonian is where every spin have the same direction, the direction is arbitrary since the Hamiltonian is isotropic. We use the following parameters:
 
-- magnetic ordering wave vector k = (0 0 0)
-- there is a single spin per unit cell S = [0 1 0]
-- an arbitrary normal vector to the spin n = [1 0 0]
+- magnetic ordering wave vector $k = (0 0 0)$
+- there is a single spin per unit cell $S = [0 1 0]$
+- an arbitrary normal vector to the spin $n = [1 0 0]$
 
 ```matlab
 FMchain.genmagstr('mode','direct', 'k',[0 0 0],'n',[1 0 0],'S',[0; 1; 0]);
@@ -93,7 +93,7 @@ ans =
 
 ### The energy of the ground state per spin
 
-The spinw.energy() function gives the ground state energy per spin, the value is dinamically calculated at every call.
+The [spinw.energy](#spinw-energy) function gives the ground state energy per spin, the value is dynamically calculated at every call.
 
 ```matlab
 FMchain.energy
@@ -106,7 +106,7 @@ Ground state energy: -1.000 meV/spin.
 
 ### Calculate spin wave dispersion and spin-spin correlation function
 
-We calculate spin wave dispersion and correlation function along the chain, momentum transfer value is Q = (H 0 0). Then we calculate the neutron scattering cross section and select 'Sperp' the neutron scattering intensity for plotting. Then we plot spin wave dispersion and the value of the correlation function with the 1-Q^2 neutron scattering cross section in units of hbar/spin.
+We calculate spin wave dispersion and correlation function along the chain, momentum transfer value is $Q = (H 0 0)$. Then we calculate the neutron scattering cross section and select `'Sperp'` for the (unpolarised) neutron scattering intensity for plotting. Then we plot spin wave dispersion and the value of the correlation function with the neutron scattering cross section in units of $\hbar$/spin.
 
 ```matlab
 FMspec = FMchain.spinwave({[0 0 0] [1 0 0]},'hermit',false);
@@ -129,7 +129,7 @@ swplot.subfigure(1,3,1)
 
 ### Calculate powder average spectrum
 
-We calculate powder spectrum for Q = 0:2.5 Angstrom^-1 100 steps resolution 1000 random Q points for every step. Then we plot the spectrum convoluted with 0.1 meV Gaussian along energy.
+We calculate powder spectrum for `Q = 0:2.5` $\mathrm{\AA}^{-1}$ in 100 steps resolution with 1000 random Q points for every step. Then we plot the spectrum convoluted with 0.1 meV Gaussian along energy.
 
 ```matlab
 FMpowspec = FMchain.powspec(linspace(0,2.5,100),'Evect',linspace(0,4.5,250),'nRand',1000,'hermit',false);

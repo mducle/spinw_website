@@ -4,7 +4,7 @@
 
 ## Antiferromagnetic square lattice
 
-We define a square lattice in the ab plane, with Cu+ ions with S=1 spin.
+We define a square lattice in the ab plane, with Cu$^+$ ions with $S=1$ spin.
 
 ### Define the lattice
 
@@ -34,7 +34,7 @@ ans =
 
 ### Couplings
 
-We create first neighbor couplings in the ab plane and plot the bonds. You can click on the different bonds to get the value of the corresponding matrix.
+We create first neighbor couplings in the $a-b$ plane and plot the bonds. You can click on the different bonds to get the value of the corresponding matrix.
 
 ```matlab
 AFsq.gencoupling('maxDistance',5)
@@ -69,12 +69,12 @@ ans =
 
 For weak second neighbor ferromagnetic interaction the magnetic structure is Neel type, with the following parameters:
 
-- ordering wave vector k = (1/2 1/2 0)
-- spin are in arbitrary plane, lets point along the S = (1 0 0) direction
-- normal to the spin vectors n = (0 0 1)
-- magnetic supercell is 2x2x1
+- ordering wave vector $k = (\frac{1}{2} \frac{1}{2} 0)$
+- spin are in arbitrary plane, lets point along the $S = (1 0 0)$ direction
+- normal to the spin vectors $n = (0 0 1)$
+- magnetic supercell is $2 \times 2 \times 1$
 
-We use magnetic supercell, since the 2*k equal to a reciprocal lattice vector. In this case the spin wave code cannot use the incommensurate mode, thus we have to create a zero-k structure, that is a 2x2x1 magnetic supercell.Note that the spinw.genmagstr() automatically normalizes the spin vectors to the spin value of the magnetic atoms.
+We use magnetic supercell, since twice the propagation vector $2k$ is equal to a reciprocal lattice vector, and in this case the spin wave code cannot use the incommensurate mode. Thus we have to create a zero-$k$ structure, that is a $2 \times 2 \times 1$ magnetic supercell. Note that the [spinw.genmagstr](#spinw-genmagstr) function automatically normalizes the spin vectors to the spin value of the magnetic atoms.
 
 ```matlab
 AFsq.genmagstr('mode','helical','k',[1/2 1/2 0],'n',[0 0 1], 'S',[1; 0; 0],'nExt',[1 1 1]);
@@ -106,7 +106,7 @@ Ground state energy: -2.200 meV/spin.
 
 ### Spin wave spectrum
 
-We calculate the spin wave spectrum and correlation function along several linear q-scans in reciprocal space defined by the Qcorner corner points. The last number in the cell defines the number of steps in each linear scan.
+We calculate the spin wave spectrum and correlation function along several linear $q$-scans in reciprocal space defined by the `Qcorner` corner points. The last number in the cell defines the number of steps in each linear scan.
 
 ```matlab
 Qcorner = {[0 0 0] [1/2 0 0] [1/2 1/2 0] [0 0 0] 200};

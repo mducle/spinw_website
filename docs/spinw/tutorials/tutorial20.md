@@ -2,13 +2,13 @@
 
 # Tutorial 20
 
-## Spin wave spectrum of Yb2Ti2O7
+## Spin wave spectrum of Yb$_2$Ti$_2$O$_7$
 
-This tutorial reproduces the calculated spin wave spectrum of YbLATEX_2PATEXTiLATEX_2PATEXOLATEX_7PATEX with the magnetic Hamiltonian proposed in the following paper: PRX **1** , 021002 (2011).
+This tutorial reproduces the calculated spin wave spectrum of Yb$_2$Ti$_2$O$_7$ with the magnetic Hamiltonian proposed in the following paper: [PRX **1** , 021002 (2011)](https://doi.org/10.1103/PhysRevX.1.021002).
 
 ### Create crystal structure
 
-To create the cubic crystal structure of YbLATEX_2PATEXTiLATEX_2PATEXOLATEX_7PATEX, we add a user defined space group with the symmetry generators using the sw_addsym() function. We use the room temperature lattice parameter, however the exact lattice parameter is unimportant for the spin wave calculation as long as we are using lattice units. The spin of the magnetic atoms are automatically created from the ion label that contains the ionic charge after the element label. We also define the non-magnetic atoms for plotting. ALternatively a .cif file of the crystal structure can be imported.
+To create the cubic crystal structure of Yb$_2$Ti$_2$O$_7$, we use a user defined space group with the symmetry generators using in a string. We use the room temperature lattice parameter, however the exact lattice parameter is unimportant for the spin wave calculation as long as we are using lattice units. The spin of the magnetic atoms are automatically created from the ion label that contains the ionic charge after the element label. We also define the non-magnetic atoms for plotting. Alternatively a `.cif` file of the crystal structure can be imported.
 
 ```matlab
 symStr = '-z, y+3/4, x+3/4; z+3/4, -y, x+3/4; z+3/4, y+3/4, -x; y+3/4, x+3/4, -z; x+3/4, -z, y+3/4; -z, x+3/4, y+3/4';
@@ -28,9 +28,9 @@ swplot.legend('none')
 :alt: 
 ``` 
 
-### Plot cubic environment of YbLATEX^{3+}PATEX
+### Plot cubic environment of Yb$^{3+}$
 
-To the draw oxygen polyhedra around the Yb ions, we use the swplot.plotchem() function, that can draw polyhedra around arbitrary atoms on an existing crystal structure plot. Now we use center atom 'Yb' and polyhedra atoms 'O' for oxygen. Since the oxygen environment of Yb is octahedron, we set the limits to the 8 closes oxygen atom. The same can be achieved within the spinw.plot() function, adding the options below plus a string 'chem', such as 'chemAtom1', 'chemAtom2', 'chemLimit' and 'chemRange' and setting 'chemMode' to 'poly'.
+To the draw oxygen polyhedra around the Yb ions, we use the [swplot.plotchem](#swplot-plotchem) function, that can draw polyhedra around arbitrary atoms on an existing crystal structure plot. Now we use center atom `'Yb'` and polyhedra atoms `'O'` for oxygen. Since the oxygen environment of Yb is octahedron, we set the limits to the 8 closest oxygen atom. The same can be achieved within the [spinw.plot](#spinw-plot) function, adding the options below plus a string `'chem'`, such as `'chemAtom1'`, `'chemAtom2'`, `'chemLimit'` and `'chemRange'` and setting `'chemMode'` to `'poly'`.
 
 ```matlab
 swplot.plotchem('atom1','Yb','atom2','O','limit',8,'range',[0.1 0.9;0.1 0.9;0.1 0.9]);
@@ -42,7 +42,7 @@ swplot.plotchem('atom1','Yb','atom2','O','limit',8,'range',[0.1 0.9;0.1 0.9;0.1 
 
 ### Create spin Hamiltonian
 
-We can remove the non-magnetic atoms from the spinw object with a single command using the unitcell() function (not to mix with the unit_cell property of the sw object). The unitcell() function can return selected atoms from the list of symmetry inequivalent atoms in the unit cell. In our case the magnetic Yb ions are the first atom.
+We can remove the non-magnetic atoms from the `spinw` object with a single command using the [unitcell](#spinw-unitcell) function (not to mix with the `unit_cell` property of the `spinw` object). The `unitcell()` function can return selected atoms from the list of symmetry inequivalent atoms in the unit cell. In our case the magnetic Yb ions are the first atom.
 
 ```matlab
 ybti.unit_cell = ybti.unitcell(1);
@@ -60,13 +60,13 @@ ybti.addcoupling('mat','J1','bond',1)
 ybti.addg('g0')
 ```
 
-In the paper the anisotropic g-tensor is defined in the local coordinate system of the magnetic ions. Where the LATEXg_zPATEX component is along the local [1 1 1] direction, while the two perpendicular components are LATEXg_{xy}PATEX. In the lattice corrdinate system the g-tensor has the matrix form: [A B B;B A B;B B A]. One can check the eigenvalues of this matrix, that has to match with the published values: LATEXg_{xy}=4.32PATEX and LATEXg_z=1.8PATEX. From the eigenvalue calculation we get: LATEXg_{xy}=A-BPATEX; LATEXg_z = A + 2*BPATEX. We store the calculated g-tensor in the sw object. When calculating the spin wave intensities, the code takes care the rotation of the g-tensor according the symmetry operators for every magnetic ion.
+In the paper the anisotropic g-tensor is defined in the local coordinate system of the magnetic ions. Where the $g_z$ component is along the local $[1 1 1]$ direction, while the two perpendicular components are $g_{xy}$. In the lattice corrdinate system the g-tensor has the matrix form: `[A B B; B A B; B B A]`. One can check the eigenvalues of this matrix, that has to match with the published values: $g_{xy}=4.32$ and $g_z=1.8$. From the eigenvalue calculation we get: $g_{xy}=A-B$; $g_z = A + 2*B$. We store the calculated g-tensor in the `spinw` object. When calculating the spin wave intensities, the code takes care the rotation of the g-tensor according the symmetry operators for every magnetic ion.
 
 ```matlab
 ybti.matrix.mat(:,:,2) =  -0.84*ones(3)+4.32*eye(3);
 ```
 
-The SpinW code also enables the calculation of the symmetry allowed exchange matrix elements usign the spinw.getmatrix() function (it also works g-tensor and anisotropy matrix). The allowed matrix elements are defined on the first bond in the ybti.couplingtable(1), thus this is not necessary identical with the bond where the exchange values define in the paper.
+The SpinW code also enables the calculation of the symmetry allowed exchange matrix elements usign the [spinw.getmatrix](#spinw-getmatrix) function (it also works for g-tensor and anisotropy matrix). The allowed matrix elements are defined on the first bond in the coupling table, thus this is not necessarily identical with the bond where the exchange values define in the paper.
 
 ```matlab
 ybti.getmatrix('mat','J1');
@@ -79,9 +79,11 @@ J1 = -0.09; J2 = -0.22; J3 = -0.29; J4 = 0.01;
 ybti.setmatrix('mat','J1','pref',[J1 J3 J2 -J4]);
 ```
 
+where the `'pref'` argument of [setmatrix](#spinw-setmatrix) are the elements `[A B C D]` given by `getmatrix`, namely the symmetric matrix `[A 0 0; 0 B C; 0 C B]` and the anti-symmetric matrix `[0 -D -D; D 0 0; D 0 0]`.
+
 ### Plot the magnetic Hamiltonian
 
-With the plot() command, we can plot the magnetic bonds of YbLATEX_2PATEXTiLATEX_2PATEXOLATEX_7PATEX. The arrow pointing from an atom to another denotes the direction of the bond, while the thicker arrow at the middle of the bond denotes the direction of the Dzyaloshinskii-Moriya vector. Is is also possible to visualize the g-tensor by setting the 'ionMode' to 'g'.
+With the [plot](#spinw-plot) command, we can plot the magnetic bonds of Yb$_2$Ti$_2$O$_7$. The arrow pointing from an atom to another denotes the direction of the bond, while the thicker arrow at the middle of the bond denotes the direction of the Dzyaloshinskii-Moriya vector. Is is also possible to visualize the g-tensor by setting the `'ionMode'` to `'g'`.
 
 ```matlab
 plot(ybti,'ionMode','g')
@@ -165,11 +167,11 @@ Published with MATLAB® R2018b
 <literal>##### SOURCE BEGIN #####
 %% Spin wave spectrum of Yb2Ti2O7
 % This tutorial reproduces the calculated spin wave spectrum of
-% YbLATEX_2PATEXTiLATEX_2PATEXOLATEX_7PATEX with the magnetic Hamiltonian
+% Yb$_2$Ti$_2$O$_7$ with the magnetic Hamiltonian
 % proposed in the following paper: <http://journals.aps.org/prx/abstract/10.1103/PhysRevX.1.021002 PRX *1* , 021002 (2011)>.
 
 %% Create crystal structure
-% To create the cubic crystal structure of YbLATEX_2PATEXTiLATEX_2PATEXOLATEX_7PATEX,
+% To create the cubic crystal structure of Yb$_2$Ti$_2$O$_7$,
 % we add a user defined space group with the symmetry generators using the
 % sw_addsym() function. We use the room temperature lattice parameter,
 % however the exact lattice parameter is unimportant for the spin wave
@@ -191,7 +193,7 @@ ybti.addatom('label','O2-','r',[3/8 3/8 3/8])
 plot(ybti,'nMesh',3)
 swplot.legend('none')
 
-%% Plot cubic environment of YbLATEX^{3+}PATEX
+%% Plot cubic environment of Yb$^{3+}$
 % To the draw oxygen polyhedra around the Yb ions, we use the
 % swplot.plotchem() function, that can draw polyhedra around arbitrary
 % atoms on an existing crystal structure plot. Now we use center atom 'Yb'
@@ -227,13 +229,13 @@ ybti.addg('g0')
 
 %%
 % In the paper the anisotropic g-tensor is defined in the local coordinate
-% system of the magnetic ions. Where the LATEXg_zPATEX component is along
+% system of the magnetic ions. Where the $g_z$ component is along
 % the local [1 1 1] direction, while the two perpendicular components are
-% LATEXg_{xy}PATEX. In the lattice corrdinate system the g-tensor has the
+% $g_{xy}$. In the lattice corrdinate system the g-tensor has the
 % matrix form: [A B B;B A B;B B A]. One can check the eigenvalues of this
 % matrix, that has to match with the published values:
-% LATEXg_{xy}=4.32PATEX and LATEXg_z=1.8PATEX. From the eigenvalue
-% calculation we get: LATEXg_{xy}=A-BPATEX; LATEXg_z = A + 2*BPATEX. We
+% $g_{xy}=4.32$ and $g_z=1.8$. From the eigenvalue
+% calculation we get: $g_{xy}=A-B$; $g_z = A + 2*B$. We
 % store the calculated g-tensor in the sw object. When calculating the spin
 % wave intensities, the code takes care the rotation of the g-tensor
 % according the symmetry operators for every magnetic ion.
@@ -259,7 +261,7 @@ ybti.setmatrix('mat','J1','pref',[J1 J3 J2 -J4]);
 
 %% Plot the magnetic Hamiltonian
 % With the plot() command, we can plot the magnetic bonds of
-% YbLATEX_2PATEXTiLATEX_2PATEXOLATEX_7PATEX. The arrow pointing from an
+% Yb$_2$Ti$_2$O$_7$. The arrow pointing from an
 % atom to another denotes the direction of the bond, while the thicker
 % arrow at the middle of the bond denotes the direction of the
 % Dzyaloshinskii-Moriya vector. Is is also possible to visualize the
